@@ -1,6 +1,4 @@
-from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
-from delivery import views
 from delivery.views import RestaurantViewSet, DishViewSet, api_root, UserViewSet
 from django.urls import path, include
 

@@ -1,10 +1,7 @@
 from django.db.models import Q
-from django.http import HttpResponse, JsonResponse, Http404
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.parsers import JSONParser
-from rest_framework.views import APIView
+
 from rest_framework.response import Response
-from rest_framework import status, generics, viewsets, renderers
+from rest_framework import viewsets
 from delivery.models import Restaurant, Dish
 from delivery.permissions import IsOwnerOrReadOnly
 from delivery.serializers import RestaurantSerializer, DishSerializer, UserSerializer

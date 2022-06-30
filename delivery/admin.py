@@ -1,5 +1,10 @@
 from django.contrib import admin
-
 from .models import Restaurant
+from import_export.admin import ExportActionMixin
 
-admin.site.register(Restaurant)
+
+class RestaurantAdmin(ExportActionMixin, admin.ModelAdmin):
+    ...
+
+
+admin.site.register(Restaurant, RestaurantAdmin)
