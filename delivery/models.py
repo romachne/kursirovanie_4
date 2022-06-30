@@ -1,5 +1,6 @@
 from django.db import models
 from pygments.styles import get_all_styles
+from simple_history.models import HistoricalRecords
 
 STYLE_CHOICES = sorted([(item, item) for item in get_all_styles()])
 
@@ -9,6 +10,7 @@ class Restaurant(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     opened = models.BooleanField(default=True)
     owner = models.ForeignKey('auth.User', related_name='snippets', on_delete=models.CASCADE)
+    history = HistoricalRecords()
 
 
 class Dish(models.Model):
