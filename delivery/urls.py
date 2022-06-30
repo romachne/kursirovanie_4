@@ -2,6 +2,11 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from delivery.views import RestaurantViewSet, DishViewSet, api_root, UserViewSet
 from django.urls import path, include
 
+
+def trigger_error(request):
+    division_by_zero = 1 / 0
+
+
 restaurant_list = RestaurantViewSet.as_view({
     'get': 'list',
     'post': 'create'
@@ -38,6 +43,7 @@ show_max_friendly_dish = DishViewSet.as_view({
 
 urlpatterns = format_suffix_patterns([
     path('', api_root),
+    path('sentry-debug/', trigger_error),
     path('restaurants/', restaurant_list, name='restaurant_list'),
     path('restaurants/<int:pk>/', restaurant_detail, name='restaurant_detail'),
     path('dishes/', dish_list, name='dish-list'),
