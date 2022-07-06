@@ -1,23 +1,42 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import axios from "axios";
 
 export default function DishesListComponent() {
-    const url = 'http://127.0.0.1:8000/dishes/';
-    const getAllNotes = () => {
-        axios.get(`${url}`)
-            .then((response) => {
-                const allNotes = response.data.notes.allNotes;
-            })
-            .catch(error => console.error('Error: ${error}'));
-    }
+    const [dishes, setDishes] = useState<any[]>([]);
 
     useEffect(() => {
-        getAllNotes();
+        getAllDishes();
     }, []);
 
+    const getAllDishes = () => {
+        axios.get("/api/dishes")
+            .then((response) => {
+                const allDishes = response.data;
+                setDishes(allDishes);
+            })
+            .catch(error => console.error(`Error: ${error}`));
+    }
+
+    const displayDishes = () => {
+        if (dishes.length > 0) {
+            return(
+                dishes.map((dish) => {
+                    console.log(dish);
+                    return(
+                        <div className='dish' key={dish.id}>
+                            <span>1</span>
+                        </div>
+                    )
+                })
+            )
+        } else {
+            return (<h3>2</h3>)
+        }
+    }
+
     return (
-        <div>
-            <h1>Page 3</h1>
-    </div>
-)
+        <>
+            {displayDishes()}
+        </>
+    )
 }
