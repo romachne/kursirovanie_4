@@ -7,6 +7,6 @@ export default function DishComponent() {
     return (
         <div>
             <h1>Page 2 of {params.id}</h1>
-    </div>
+        </div>
 )
 }

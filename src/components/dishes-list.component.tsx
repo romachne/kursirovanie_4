@@ -24,7 +24,7 @@ export default function DishesListComponent() {
                     console.log(dish);
                     return(
                         <div className='dish' key={dish.id}>
-                            <span>1</span>
+                            <span>{dish.id}</span>
                         </div>
                     )
                 })
@@ -35,8 +35,11 @@ export default function DishesListComponent() {
     }
 
     return (
-        <>
-            {displayDishes()}
-        </>
+        <div>
+            <h1>Page 2</h1>
+            <>
+                {displayDishes()}
+            </>
+        </div>
     )
 }
