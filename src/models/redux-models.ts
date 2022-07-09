@@ -1,5 +1,5 @@
 export  interface DishModel{
-    "id": number,
+    "id": string,
     "title": string,
     "style": string,
     "quantity": number,

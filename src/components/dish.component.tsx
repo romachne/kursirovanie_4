@@ -1,33 +1,37 @@
-import {useState} from "react";
+import {useEffect} from "react";
 import {useAppDispatch, useAppSelector} from "../hooks/redux-hooks";
-import {fetchDishes, fetchParticularDish} from "../store/dish-actions";
+import {fetchDishes} from "../store/dish-actions";
 
 const Dish = () => {
-    const [dish_id, setDish_id] = useState(1);
+    // const [dish_id, setDish_id] = useState(1);
     const dispatch = useAppDispatch();
-    const allDishes = useAppSelector(state => state.dish.all_dishes);
-    const particularDish = useAppSelector(state => state.dish.particular_dish);
-    const clickHandler = () => [
+    const alldishes = useAppSelector(state => state.dish.all_dishes);
+    // const particularDish = useAppSelector(state => state.dish.particular_dish);
+    // const clickHandler = () => {
+    //     dispatch(fetchDishes())
+    //     console.log('243')
+    // }
+    useEffect(() => {
         dispatch(fetchDishes())
-    ]
-    const searchHandler = () => {
-        dispatch(fetchParticularDish(dish_id))
-    }
+    }, [dispatch])
+    // const searchHandler = () => {
+    //     dispatch(fetchParticularDish(dish_id))
+    // }
     const checkDish = (): boolean => {
-        if (particularDish.id === 0) {
-           return false
-        }
-        return true
+        return alldishes.length !== 0;
     }
+    // const checkparticularDish = (): boolean => {
+    //     return particularDish.id !== 0;
+    // }
 
     return (
         <>
             <div>
-                <button onClick={clickHandler}>All Dishes</button>
+                {/*<button onClick={clickHandler}>All Dishes</button>*/}
                 <div>
                     <h3>Dish List:</h3>
                     {checkDish() &&
-                        allDishes.map((dish) => (
+                        alldishes.map((dish) => (
                             <div key={dish.id}>
                                 <p>{dish.id}</p>
                                 <p>{dish.title}</p>

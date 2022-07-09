@@ -16,9 +16,10 @@ export const fetchDishes = (): ThunkAction<void, RootState, unknown, AnyAction> 
     }
 }
 
-export const fetchParticularDish = (dish_id: number): ThunkAction<void, RootState, unknown, AnyAction> => {
-    return async(dispatch, getState) => {
-        const response: DishModel = await DishService.getParticularDish(dish_id);
-        dispatch(dishActions.setParticularDish(response))
-    }
-}
+
+// export const fetchParticularDish = (dish_id: number): ThunkAction<void, RootState, unknown, AnyAction> => {
+//     return async(dispatch, getState) => {
+//         const response: DishModel = await DishService.getParticularDish(dish_id);
+//         dispatch(dishActions.setParticularDish(response))
+//     }
+// }

@@ -3,7 +3,9 @@ import {DishModel} from "../models/redux-models";
 
 export default {
     async getAllDishes() {
+        console.log("123")
         var response = await api().get('dishes');
+        console.log(response)
         return response.data
     },
     async getParticularDish(dish_id: number) {
