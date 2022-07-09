@@ -1,45 +1,30 @@
-import React, {useEffect, useState} from 'react'
-import axios from "axios";
+import React from 'react'
+import useFetchDataComponent from "./use-fetch-data.component";
 
-export default function DishesListComponent() {
-    const [dishes, setDishes] = useState<any[]>([]);
-
-    useEffect(() => {
-        getAllDishes();
-    }, []);
-
-    const getAllDishes = () => {
-        axios.get("/api/dishes")
-            .then((response) => {
-                const allDishes = response.data;
-                setDishes(allDishes);
-            })
-            .catch(error => console.error(`Error: ${error}`));
-    }
-
-    const displayDishes = () => {
-        if (dishes.length > 0) {
-            return(
-                dishes.map((dish) => {
-                    console.log(dish);
-                    return(
-                        <div className='dish' key={dish.id}>
-                            <span>{dish.id}</span>
-                        </div>
-                    )
-                })
-            )
-        } else {
-            return (<h3>2</h3>)
-        }
-    }
+const DishesListComponent = () => {
+    const {
+        data,
+        loading,
+    } = useFetchDataComponent();
 
     return (
         <div>
-            <h1>Page 2</h1>
-            <>
-                {displayDishes()}
-            </>
+            {loading && <div>Loading</div>}
+            {!loading && (
+                <div>
+                    {data.map((item) => {
+                        return(
+                            <div className='dish' key={item.id}>
+                                <h2>{item.title}</h2>
+                                <h4>{item.style}</h4>
+                                <h4>{item.quantity}</h4>
+                            </div>
+                        )
+                    })}
+                </div>
+            )}
         </div>
     )
 }
+
+export default DishesListComponent;

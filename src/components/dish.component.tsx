@@ -1,12 +1,27 @@
-import React from 'react'
-import {useParams} from "react-router-dom";
+import * as React from "react"
+import { Dispatch } from "redux"
+import { useDispatch } from "react-redux"
 
-export default function DishComponent() {
-    const params = useParams();
+type Props = {
+    dish: IDish
+    removeDish: (dish: IDish) => void
+}
+
+export const Dish: React.FC<Props> = ({ dish, removeDish }) => {
+    const dispatch: Dispatch<any> = useDispatch()
+
+    const deleteDish = React.useCallback(
+        (dish: IDish) => dispatch(removeDish(dish)),
+        [dispatch, removeDish]
+    )
 
     return (
-        <div>
-            <h1>Page 2 of {params.id}</h1>
+        <div className="Dish">
+            <div>
+                <h1>{dish.title}</h1>
+                <p>{dish.style}</p>
+            </div>
+            <button onClick={() => deleteDish(dish)}>Delete</button>
         </div>
-)
+    )
 }
