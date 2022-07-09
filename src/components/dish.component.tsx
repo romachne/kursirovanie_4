@@ -1,27 +1,43 @@
-import * as React from "react"
-import { Dispatch } from "redux"
-import { useDispatch } from "react-redux"
+import {useState} from "react";
+import {useAppDispatch, useAppSelector} from "../hooks/redux-hooks";
+import {fetchDishes, fetchParticularDish} from "../store/dish-actions";
 
-type Props = {
-    dish: IDish
-    removeDish: (dish: IDish) => void
-}
-
-export const Dish: React.FC<Props> = ({ dish, removeDish }) => {
-    const dispatch: Dispatch<any> = useDispatch()
-
-    const deleteDish = React.useCallback(
-        (dish: IDish) => dispatch(removeDish(dish)),
-        [dispatch, removeDish]
-    )
+const Dish = () => {
+    const [dish_id, setDish_id] = useState(1);
+    const dispatch = useAppDispatch();
+    const allDishes = useAppSelector(state => state.dish.all_dishes);
+    const particularDish = useAppSelector(state => state.dish.particular_dish);
+    const clickHandler = () => [
+        dispatch(fetchDishes())
+    ]
+    const searchHandler = () => {
+        dispatch(fetchParticularDish(dish_id))
+    }
+    const checkDish = (): boolean => {
+        if (particularDish.id === 0) {
+           return false
+        }
+        return true
+    }
 
     return (
-        <div className="Dish">
+        <>
             <div>
-                <h1>{dish.title}</h1>
-                <p>{dish.style}</p>
+                <button onClick={clickHandler}>All Dishes</button>
+                <div>
+                    <h3>Dish List:</h3>
+                    {checkDish() &&
+                        allDishes.map((dish) => (
+                            <div key={dish.id}>
+                                <p>{dish.id}</p>
+                                <p>{dish.title}</p>
+                            </div>
+                        ))
+                    }
+                </div>
             </div>
-            <button onClick={() => deleteDish(dish)}>Delete</button>
-        </div>
-    )
+        </>
+    );
 }
+
+export default Dish;
